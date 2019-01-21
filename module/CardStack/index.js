@@ -276,9 +276,9 @@ component.displayName = "CardStack";
 
 // Default Props
 component.defaultProps = {
-  horizontalOnly: true, // false,
-  padding: 16, // 0,
-  radius: 16, // 0
+  horizontalOnly: true,
+  padding: 16,
+  radius: 16,
   inactiveCardScale: 0.95,
   activeCardRotate: 10,
   renderNoMoreCard: null,
