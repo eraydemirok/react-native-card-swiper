@@ -1,16 +1,7 @@
 
 # react-native-card-swiper
 
-## Getting started
-
-`$ npm install react-native-card-swiper --save`
-
-### Mostly automatic installation
-
-`$ react-native link react-native-card-swiper`
-
 ### Manual installation
-
 
 #### Android
 
@@ -30,9 +21,6 @@
 
 ## Usage
 ```javascript
-import RNCardSwiper from 'react-native-card-swiper';
-
-// TODO: What to do with the module?
-RNCardSwiper;
+import { CardStack, Card } from "react-native-card-swiper";
 ```
   # react-native-card-swiper
