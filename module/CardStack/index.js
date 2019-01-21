@@ -50,7 +50,7 @@ class component extends Component {
   setData = props => {
     //
     this.children = Array.isArray(props.children)
-      ? Object.assign([], props.children).reverse()
+      ? Object.assign([], props.children)
       : [props.children];
 
     //
