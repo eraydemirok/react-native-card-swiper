@@ -33,7 +33,10 @@ class component extends Component {
 
   componentWillMount() {}
 
-  componentDidMount() {}
+  componentDidMount() {
+    //
+    this.setData(this.props);
+  }
 
   componentWillReceiveProps(props) {
     //
