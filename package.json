@@ -1,0 +1,37 @@
+{
+  "name": "react-native-card-swiper",
+  "version": "0.0.1",
+  "description": "Tinder and Badoo like card stack swiper.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native",
+    "card",
+    "swiper",
+    "swipe",
+    "stack",
+    "tinder",
+    "badoo",
+    "card stack",
+    "card swiper",
+    "tinder card",
+    "badoo card"
+  ],
+  "author": "Eray Demirok",
+  "license": "MIT",
+  "peerDependencies": {
+    "react-native": "^0.57.8"
+  },
+  "dependencies": {
+    "react-native-interactable": "^1.0.0-alpha.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:eraydemirok/react-native-card-swiper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/eraydemirok/react-native-card-swiper/issues"
+  }
+}
