@@ -24,9 +24,6 @@
   "peerDependencies": {
     "react-native": "^0.57.8"
   },
-  "dependencies": {
-    "react-native-interactable": "^1.0.0-alpha.1"
-  },
   "repository": {
     "type": "git",
     "url": "git@github.com:eraydemirok/react-native-card-swiper.git"
