@@ -18,36 +18,8 @@ class component extends Component {
     super(props);
 
     //
-    this.children = [];
     this.childrenRefs = [];
-    this.childrenAnimated = [];
 
-    //
-    this.state = {
-      containerWidth: width,
-      containerHeight: height,
-      activeCard: null,
-      activeLastCard: null
-    };
-  }
-
-  componentWillMount() {}
-
-  componentDidMount() {
-    //
-    this.setData(this.props);
-  }
-
-  componentWillReceiveProps(props) {
-    //
-    if (this.props.children !== props.children) {
-      this.setData(props);
-    }
-  }
-
-  //
-
-  setData = props => {
     //
     this.children = Array.isArray(props.children)
       ? Object.assign([], props.children)
@@ -62,11 +34,19 @@ class component extends Component {
     ];
 
     //
-    this.setState({
+    this.state = {
+      containerWidth: width,
+      containerHeight: height,
       activeCard: this.children.length - 1,
       activeLastCard: null
-    });
-  };
+    };
+  }
+
+  componentWillMount() {}
+
+  componentDidMount() {}
+
+  //
 
   setActiveCard = index => {
     this.setState(
@@ -252,6 +232,7 @@ class component extends Component {
   };
 
   render() {
+    console.log("RENDER");
     //
     if (this.state.activeCard === -1 && this.props.renderNoMoreCard !== null) {
       return this.props.renderNoMoreCard();
