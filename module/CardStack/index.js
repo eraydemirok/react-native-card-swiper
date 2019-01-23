@@ -48,40 +48,34 @@ class component extends Component {
 
   //
 
-  setActiveCard = index => {
+  setActiveCard = (index, actionCallback) => {
     this.setState(
-      prevState => {
-        return {
-          activeCard: prevState.activeCard - 1,
-          activeLastCard: index
-        };
+      {
+        activeCard: index - 1,
+        activeLastCard: index
       },
       () => {
-        this.onCardIsOver();
+        this.canBeUndone();
+        this.onCardIsOver(index);
+        actionCallback(index);
       }
     );
   };
 
   onLike = index => {
-    this.setActiveCard(index);
-    this.canBeUndone(index);
-    this.props.onLike(index);
+    this.setActiveCard(index, this.props.onLike);
   };
 
   onDislike = index => {
-    this.setActiveCard(index);
-    this.canBeUndone(index);
-    this.props.onDislike(index);
+    this.setActiveCard(index, this.props.onDislike);
   };
 
   onSuperlike = index => {
-    this.setActiveCard(index);
-    this.canBeUndone(index);
-    this.props.onSuperlike(index);
+    this.setActiveCard(index, this.props.onSuperlike);
   };
 
-  onCardIsOver = () => {
-    if (this.state.activeCard === -1) {
+  onCardIsOver = index => {
+    if (index === 0) {
       this.props.onCardIsOver();
     }
   };
@@ -232,7 +226,6 @@ class component extends Component {
   };
 
   render() {
-    console.log("RENDER");
     //
     if (this.state.activeCard === -1 && this.props.renderNoMoreCard !== null) {
       return this.props.renderNoMoreCard();
@@ -262,7 +255,6 @@ component.displayName = "CardStack";
 component.defaultProps = {
   horizontalOnly: true,
   padding: 16,
-  radius: 16,
   inactiveCardScale: 0.95,
   activeCardRotate: 10,
   renderNoMoreCard: null,
@@ -277,7 +269,6 @@ component.defaultProps = {
 component.propTypes = {
   horizontalOnly: PropTypes.bool,
   padding: PropTypes.number,
-  radius: PropTypes.number,
   inactiveCardScale: PropTypes.number,
   activeCardRotate: PropTypes.number,
   renderNoMoreCard: PropTypes.func,
