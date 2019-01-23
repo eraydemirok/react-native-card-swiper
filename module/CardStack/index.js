@@ -27,9 +27,9 @@ class component extends Component {
 
     //
     this.childrenAnimated = [
-      new Animated.ValueXY(),
+      new Animated.Value(0),
       ...this.children.map(() => {
-        return new Animated.ValueXY();
+        return new Animated.Value(0);
       })
     ];
 
@@ -38,7 +38,8 @@ class component extends Component {
       containerWidth: width,
       containerHeight: height,
       activeCard: this.children.length - 1,
-      activeLastCard: null
+      activeLastCard: null,
+      isSuperlike: false
     };
   }
 
@@ -97,7 +98,9 @@ class component extends Component {
   };
 
   superlike = () => {
-    this.childrenRefs[this.state.activeCard].snapTo({ index: 3 });
+    this.setState({ isSuperlike: true }, () => {
+      this.childrenRefs[this.state.activeCard].snapTo({ index: 1 });
+    });
   };
 
   undo = () => {
@@ -127,7 +130,8 @@ class component extends Component {
 
   renderCards = () => {
     //
-    let { containerWidth, containerHeight } = this.state;
+    let { containerWidth } = this.state;
+    let { inactiveCardScale } = this.props;
 
     //
     this.props.onAnimated(this.childrenAnimated[this.state.activeCard]);
@@ -140,7 +144,7 @@ class component extends Component {
       }
 
       //
-      let rotate = this.childrenAnimated[index].x.interpolate({
+      let rotate = this.childrenAnimated[index].interpolate({
         inputRange: [-containerWidth, 0, containerWidth],
         outputRange: [
           "-" + this.props.activeCardRotate + "deg",
@@ -150,25 +154,14 @@ class component extends Component {
       });
 
       //
-      let activeCardScale = index === this.children.length - 1 ? 0.5 : 0.515;
-      let inactiveCardScale = this.props.inactiveCardScale / 2;
       let scaleDefault =
-        index === this.children.length - 1
-          ? activeCardScale
-          : inactiveCardScale;
+        index === this.children.length - 1 ? 1 : inactiveCardScale;
 
       //
-      let scale1 = this.childrenAnimated[index + 1].x.interpolate({
+      let scale = this.childrenAnimated[index + 1].interpolate({
         inputRange: [-containerWidth, 0, containerWidth],
-        outputRange: [activeCardScale, scaleDefault, activeCardScale]
+        outputRange: [1, scaleDefault, 1]
       });
-      //
-      let scale2 = this.childrenAnimated[index + 1].y.interpolate({
-        inputRange: [-containerHeight, 0, containerHeight],
-        outputRange: [activeCardScale, scaleDefault, activeCardScale]
-      });
-      //
-      let scale = Animated.add(scale1, scale2);
 
       //
       return (
@@ -177,37 +170,35 @@ class component extends Component {
           ref={ref => {
             this.childrenRefs[index] = ref;
           }}
-          animatedValueX={this.childrenAnimated[index].x}
-          animatedValueY={this.childrenAnimated[index].y}
-          horizontalOnly={this.props.horizontalOnly}
+          animatedValueX={this.childrenAnimated[index]}
+          horizontalOnly={true}
           animatedNativeDriver={false}
           snapPoints={[
             { x: 0, y: 0 },
             { x: containerWidth + 75, y: 0 },
-            { x: -(containerWidth + 75), y: 0 },
-            { x: 0, y: -height }
+            { x: -(containerWidth + 75), y: 0 }
           ]}
           alertAreas={[
             {
-              id: "like",
+              id: "like", // and superlike
               influenceArea: { right: containerWidth }
             },
             {
               id: "dislike",
               influenceArea: { left: -containerWidth }
-            },
-            {
-              id: "superlike",
-              influenceArea: { top: -containerHeight }
             }
           ]}
           onAlert={event => {
             if (event.nativeEvent.like === "leave") {
-              this.onLike(index);
+              if (this.state.isSuperlike) {
+                this.setState({ isSuperlike: false }, () => {
+                  this.onSuperlike(index);
+                });
+              } else {
+                this.onLike(index);
+              }
             } else if (event.nativeEvent.dislike === "leave") {
               this.onDislike(index);
-            } else if (event.nativeEvent.superlike === "leave") {
-              this.onSuperlike(index);
             }
           }}
         >
@@ -253,7 +244,6 @@ component.displayName = "CardStack";
 
 // Default Props
 component.defaultProps = {
-  horizontalOnly: true,
   padding: 16,
   inactiveCardScale: 0.95,
   activeCardRotate: 10,
@@ -267,7 +257,6 @@ component.defaultProps = {
   onAnimated: () => {}
 };
 component.propTypes = {
-  horizontalOnly: PropTypes.bool,
   padding: PropTypes.number,
   inactiveCardScale: PropTypes.number,
   activeCardRotate: PropTypes.number,
