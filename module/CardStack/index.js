@@ -172,7 +172,7 @@ class component extends Component {
           }}
           animatedValueX={this.childrenAnimated[index]}
           horizontalOnly={true}
-          animatedNativeDriver={false}
+          animatedNativeDriver={true}
           snapPoints={[
             { x: 0, y: 0 },
             { x: containerWidth + 75, y: 0 },
