@@ -56,9 +56,9 @@ class component extends Component {
         activeLastCard: index
       },
       () => {
+        actionCallback(index);
         this.canBeUndone();
         this.onCardIsOver(index);
-        actionCallback(index);
       }
     );
   };
