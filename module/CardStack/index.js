@@ -145,6 +145,7 @@ class component extends Component {
 
       //
       let rotate = this.childrenAnimated[index].interpolate({
+        useNativeDriver: true,
         inputRange: [-containerWidth, 0, containerWidth],
         outputRange: [
           "-" + this.props.activeCardRotate + "deg",
@@ -159,6 +160,7 @@ class component extends Component {
 
       //
       let scale = this.childrenAnimated[index + 1].interpolate({
+        useNativeDriver: true,
         inputRange: [-containerWidth, 0, containerWidth],
         outputRange: [1, scaleDefault, 1]
       });
@@ -172,7 +174,6 @@ class component extends Component {
           }}
           animatedValueX={this.childrenAnimated[index]}
           horizontalOnly={true}
-          animatedNativeDriver={true}
           snapPoints={[
             { x: 0, y: 0 },
             { x: containerWidth + 75, y: 0 },
