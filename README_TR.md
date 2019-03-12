@@ -90,6 +90,7 @@ return (
 | onCardIsOver      | -       | func   | Yığında kart bittiğinde tetiklenir.                                                                               |
 | canBeUndone       | -       | func   | Yığında geri alınabilir kart var mı, yok mu durumunu bildirir, true veya false değeri döner.                      |
 | onAnimated        | -       | func   | Yığının en üstündeki kartın animated değerini döner, kart her değiştiğinde en üstteki kart için veri güncellenir. |
+| renderOverlay     | -       | func   | Yığının en üstüne yığını kaplayacak bir şekilde view oluşturur ve animated değeri döner. Like ve Dislike damgası gibi aksiyonlar için kullanılır. |
 
 
 #### Props (Card)
