@@ -217,6 +217,19 @@ class component extends Component {
     });
   };
 
+  renderOverlayContent = () => {
+    //
+    let activeAnimated = this.childrenAnimated[this.state.activeCard];
+
+    return (
+      <View style={styles.overlay} pointerEvents="box-none">
+        {this.props.renderOverlay(
+          activeAnimated === undefined ? new Animated.Value(0) : activeAnimated
+        )}
+      </View>
+    );
+  };
+
   render() {
     //
     if (this.state.activeCard === -1 && this.props.renderNoMoreCard !== null) {
@@ -235,6 +248,7 @@ class component extends Component {
         }}
       >
         {this.renderCards()}
+        {this.renderOverlayContent()}
       </View>
     );
   }
@@ -255,7 +269,8 @@ component.defaultProps = {
   onUndo: () => {},
   onCardIsOver: () => {},
   canBeUndone: () => {},
-  onAnimated: () => {}
+  onAnimated: () => {},
+  renderOverlay: () => {}
 };
 component.propTypes = {
   padding: PropTypes.number,
@@ -268,7 +283,8 @@ component.propTypes = {
   onUndo: PropTypes.func,
   onCardIsOver: PropTypes.func,
   canBeUndone: PropTypes.func,
-  onAnimated: PropTypes.func
+  onAnimated: PropTypes.func,
+  renderOverlay: PropTypes.func
 };
 
 export default component;
