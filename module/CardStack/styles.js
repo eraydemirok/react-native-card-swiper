@@ -18,5 +18,5 @@ export default StyleSheet.create({
     height: "100%",
     position: "absolute",
     zIndex: 999999
+  }
 });
-  
