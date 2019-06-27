@@ -210,8 +210,8 @@ class component extends Component {
               padding: this.props.padding
             }}
           >
-            {this.renderStampsContent(index)}
             {this.renderCard(item, index)}
+            {this.renderStampsContent(index)}
           </Animated.View>
         </Interactable.View>
       );
@@ -228,7 +228,7 @@ class component extends Component {
         <View
           style={[
             styles.overlay,
-            { zIndex: 999998, margin: this.props.padding }
+            { zIndex: 999998, elevation: 999998, margin: this.props.padding }
           ]}
           pointerEvents="none"
         >
@@ -251,7 +251,7 @@ class component extends Component {
 
     return (
       <View
-        style={[styles.overlay, { zIndex: 999998 }]}
+        style={[styles.overlay, { zIndex: 999999, elevation: 999999 }]}
         pointerEvents="box-none"
       >
         {this.props.renderOverlay(
