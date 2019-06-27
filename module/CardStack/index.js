@@ -210,6 +210,7 @@ class component extends Component {
               padding: this.props.padding
             }}
           >
+            {this.renderStampsContent(index)}
             {this.renderCard(item, index)}
           </Animated.View>
         </Interactable.View>
@@ -217,12 +218,42 @@ class component extends Component {
     });
   };
 
+  renderStampsContent = index => {
+    //
+    let activeAnimated = this.childrenAnimated[this.state.activeCard];
+
+    //
+    if (index === this.state.activeCard) {
+      return (
+        <View
+          style={[
+            styles.overlay,
+            { zIndex: 999998, margin: this.props.padding }
+          ]}
+          pointerEvents="none"
+        >
+          {this.props.renderStamps(
+            activeAnimated === undefined
+              ? new Animated.Value(0)
+              : activeAnimated,
+            this.state.activeCard
+          )}
+        </View>
+      );
+    } else {
+      return null;
+    }
+  };
+
   renderOverlayContent = () => {
     //
     let activeAnimated = this.childrenAnimated[this.state.activeCard];
 
     return (
-      <View style={styles.overlay} pointerEvents="box-none">
+      <View
+        style={[styles.overlay, { zIndex: 999998 }]}
+        pointerEvents="box-none"
+      >
         {this.props.renderOverlay(
           activeAnimated === undefined ? new Animated.Value(0) : activeAnimated
         )}
@@ -270,7 +301,8 @@ component.defaultProps = {
   onCardIsOver: () => {},
   canBeUndone: () => {},
   onAnimated: () => {},
-  renderOverlay: () => {}
+  renderOverlay: () => {},
+  renderStamps: () => {}
 };
 component.propTypes = {
   padding: PropTypes.number,
@@ -284,7 +316,8 @@ component.propTypes = {
   onCardIsOver: PropTypes.func,
   canBeUndone: PropTypes.func,
   onAnimated: PropTypes.func,
-  renderOverlay: PropTypes.func
+  renderOverlay: PropTypes.func,
+  renderStamps: PropTypes.func
 };
 
 export default component;
