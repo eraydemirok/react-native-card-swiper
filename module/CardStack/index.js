@@ -168,7 +168,7 @@ class component extends Component {
           containerWidth / 2,
           containerWidth
         ],
-        outputRange: [1, scaleDefault, 1]
+        outputRange: [1, 1, scaleDefault, 1, 1]
       });
 
       //
