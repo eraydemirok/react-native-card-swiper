@@ -161,7 +161,13 @@ class component extends Component {
       //
       let scale = this.childrenAnimated[index + 1].interpolate({
         useNativeDriver: true,
-        inputRange: [-containerWidth, 0, containerWidth],
+        inputRange: [
+          -containerWidth,
+          -(containerWidth / 2),
+          0,
+          containerWidth / 2,
+          containerWidth
+        ],
         outputRange: [1, scaleDefault, 1]
       });
 
