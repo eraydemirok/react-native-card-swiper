@@ -179,6 +179,7 @@ class component extends Component {
             this.childrenRefs[index] = ref;
           }}
           animatedValueX={this.childrenAnimated[index]}
+          animatedValueY={new Animated.Value(0)}
           horizontalOnly={true}
           snapPoints={[
             { x: 0, y: 0 },
