@@ -77,7 +77,9 @@ class component extends Component {
 
   onCardIsOver = index => {
     if (index === 0) {
-      this.props.onCardIsOver();
+      setTimeout(() => {
+        this.props.onCardIsOver();
+      }, 200);
     }
   };
 
